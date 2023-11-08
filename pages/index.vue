@@ -1,13 +1,10 @@
 <template>
   <div class="w-full h-screen overflow-hidden">
-    <div
-      class="h-full w-full flex flex-col overflow-hidden px-4 lg:container lg:px-0"
-    >
-      <div class="h-fit flex flex-col w-full justify-center items-center">
+    <div class="h-full w-full flex flex-col overflow-hidden px-4 lg:container lg:px-0"
+    > <div class="h-fit flex flex-col w-full justify-center items-center">
         <div class="flex w-full mt-4">
           <span
-            class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600"
-          >
+            class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600"     >
             @
           </span>
           <input
@@ -16,7 +13,7 @@
             class="rounded-none bg-gray-50 border border-gray-300 text-gray-900 focus:ring-0 focus:border-none block flex-1 min-w-0 w-full text-sm p-4"
             placeholder="Hey Chat GPT, write me a poem on life. (Max 100 characters)"
             v-model="message"
-            maxlength="100"
+            maxlength="100"          
           />
           <span
             @click="send()"
@@ -26,31 +23,32 @@
           </span>
         </div>
       </div>
-      <div
-        class="h-full w-full border border-gray-200 rounded-md p-6 bg-gray-50 font-light mt-4 overflow-y-scroll"
-      >
-        <div class="w-full">
-          <div
-            v-for="(c, index) in conversations"
-            :key="index"
-            class="w-full flex flex-col"
-          >
-            <div
-              class="flex flex-row w-full justify-start items-start space-x-2 p-2 mt-4"
-            >
-              <p
-                class="h-8 w-8 flex justify-center items-center rounded-full bg-gray-300 text-sm"
-              >
+      <div class="chat-container">
+        <div class="chat-box">
+          <div v-for="(c, index) in conversations" :key="index" class="message">
+            <div class="flex flex-row w-full justify-start items-start space-x-2 p-2 mt-4">
+              <p class="h-8 w-8 flex justify-center items-center rounded-full bg-gray-300 text-sm">
                 U
               </p>
-              <p>{{ c.q }}</p>
+              <div class="message-text">{{ c.q }}</div>
             </div>
-            <div
-              class="flex flex-row justify-start items-center space-x-2 bg-gray-100 p-2 rounded"
-            >
-              <p>{{ c.a }}</p>
+            <div class="flex flex-row justify-start items-center space-x-2 bg-gray-100 p-2 rounded">
+              <div class="message-text">{{ c.a }}</div>
             </div>
           </div>
+         <!-- <div class="chat-container">
+            <div class="chat-box">
+              <div v-for="(c, index) in conversations" :key="index" class="message">
+                <div class="user-message">
+                  <p class="user-avatar">U</p>
+                  <div class="message-text">{{ c.q }}</div>
+                </div>
+                <div class="assistant-message">
+                  <div class="message-text">{{ c.a }}</div>
+                </div>
+              </div>
+            </div>
+          </div> -->
           <div v-if="isLoading">
             <lottie-player
               src="https://assets3.lottiefiles.com/packages/lf20_SCdC0F.json"
@@ -63,9 +61,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="h-fit w-full flex flex-row space-x-3 justify-center items-center text-sm font-light pb-2 mt-4"
-      >
+      <div class="h-fit w-full flex flex-row space-x-3 justify-center items-center text-sm font-light pb-2 mt-4">
         <p>Built with Nuxt3</p>
         <p>|</p>
         <a
@@ -159,10 +155,15 @@ async send() {
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: [{ role: 'system', content: this.message }],
-        temperature: 0.1,
+        messages: [{ role: 'system', content: 'tu es un spécialiste de recherche en documentation techniques qui fourni des liens sur des lignes séparées' },
+        { role: 'system', content: 'tu recherches d abord sur https://www.tecnoland.fr, https://manualzz.com/, https://docplayer.fr/' },
+        { role: 'user', name: 'example_user', content: 'Convertisseur de pression et de pression différentielle Type 4304 jumo' },
+        { role: 'assistant', name: 'example_assistant', content: 'https://www.jumo.fr/web/products/apps/productdetailpage?pdpId=404304' },
+        { role: 'user', name: 'example_user', content: 'centrale de mesure pm800' },
+        { role: 'assistant', name: 'example_assistant', content: 'https://damrexelprod.blob.core.windows.net/medias/1257edec-0da2-4c95-8de0-9a8995761a01' },
+        { role: 'user', content: this.message }],
+        temperature: 0,
         max_tokens: 512,
-        stop: ['Human', 'Ai']
       })
     });
 
