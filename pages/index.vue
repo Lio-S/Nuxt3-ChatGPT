@@ -32,23 +32,21 @@
               </p>
               <div class="message-text">{{ c.q }}</div>
             </div>
-            <div class="flex flex-row justify-start items-center space-x-2 bg-gray-100 p-2 rounded">
+            <!-- <div class="flex flex-row justify-start items-center space-x-2 bg-gray-100 p-2 rounded">
               <div class="message-text">{{ c.a }}</div>
             </div>
-          </div>
+          </div>  -->
          <!-- <div class="chat-container">
             <div class="chat-box">
               <div v-for="(c, index) in conversations" :key="index" class="message">
                 <div class="user-message">
                   <p class="user-avatar">U</p>
                   <div class="message-text">{{ c.q }}</div>
-                </div>
+                </div> -->
                 <div class="assistant-message">
                   <div class="message-text">{{ c.a }}</div>
                 </div>
               </div>
-            </div>
-          </div> -->
           <div v-if="isLoading">
             <lottie-player
               src="https://assets3.lottiefiles.com/packages/lf20_SCdC0F.json"
@@ -82,6 +80,62 @@
     </div>
   </div>
 </template>
+
+.chat-container {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 12px;
+  background-color: #f7f7f7;
+  font-weight: 300;
+  margin-top: 20px;
+  overflow-y: scroll;
+}
+
+.chat-box {
+  width: 100%;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-message {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+.user-avatar {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #ccc;
+  font-size: 14px;
+}
+
+.message-text {
+  margin-left: 12px;
+}
+
+assistant-message {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 8px;
+  background-color: #f0f0f0;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* Ajoutez d'autres styles CSS au besoin */
 
 <script>
 import { useMouse } from '@vueuse/core'
